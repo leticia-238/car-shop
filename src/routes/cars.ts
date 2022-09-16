@@ -9,6 +9,6 @@ const model = new CarModel();
 const service = new CarService(model);
 const controller = new CarController(service);
 
-route.post('/cars', controller.create);
+route.post('/cars', (req, res) => controller.create(req, res));
 
 export default route;
