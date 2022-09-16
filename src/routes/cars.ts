@@ -15,4 +15,6 @@ route.post(path, (req, res) => controller.create(req, res));
 
 route.get(path, (req, res) => controller.read(req, res));
 
+route.get(`${path}/:id`, (req, res) => controller.readOne(req, res));
+
 export default route;

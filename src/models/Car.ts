@@ -37,8 +37,9 @@ class CarModel implements IModel<ICar> {
     return cars;
   }
   
-  readOne(): Promise<ICar> {
-    throw new Error(errorMessage);
+  async readOne(id: string): Promise<ICarWithId | null> {
+    const car = await this._mongooseModel.findById(id);
+    return car;
   }
   update(): Promise<ICar> {
     throw new Error(errorMessage);

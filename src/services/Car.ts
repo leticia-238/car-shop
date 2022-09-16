@@ -21,6 +21,11 @@ class CarService implements IService<ICar> {
     const cars = await this._model.read();
     return cars as ICarWithId[] | [];
   }
+  
+  async readOne(id: string): Promise<ICarWithId> {
+    const car = await this._model.readOne(id);
+    return car as ICarWithId;
+  }
 }
 
 export default CarService;
