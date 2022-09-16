@@ -1,0 +1,21 @@
+[
+  {
+    "_id": "20066c64-a887-4489-8156-ced77705746b",
+    "colId": "fd802377-b6d3-4065-8009-cd7176f36eeb",
+    "containerId": "66dc602c-5c93-496d-8bc7-405462c99d97",
+    "name": "cars - valid request",
+    "url": "localhost:3001/cars",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2022-09-15T15:30:07.461Z",
+    "modified": "2022-09-15T15:34:09.434Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"model\": \"opala\",\n  \"year\": 1998,\n  \"color\": \"blue\",\n  \"buyValue\": 50000, \n  \"doorsQty\": 4,\n  \"seatsQty\": 5\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

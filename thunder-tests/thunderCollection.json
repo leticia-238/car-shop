@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "fd802377-b6d3-4065-8009-cd7176f36eeb",
+    "colName": "car shop",
+    "created": "2022-09-15T15:29:43.773Z",
+    "sortNum": 10000,
+    "folders": [
+      {
+        "_id": "66dc602c-5c93-496d-8bc7-405462c99d97",
+        "name": "cars",
+        "containerId": "",
+        "created": "2022-09-15T15:29:50.014Z",
+        "sortNum": 10000
+      }
+    ]
+  }
+]
