@@ -6,21 +6,21 @@ import { IModel } from '../interfaces/IModel';
 
 const errorMessage = 'Method not implemented.';
 
+const mongooseSchema = new MongooseSchema<ICar>({
+  model: { type: String, required: true },
+  year: { type: Number, required: true },
+  color: { type: String, required: true },
+  status: Boolean,
+  buyValue: { type: Number, required: true },
+  doorsQty: { type: Number, required: true },
+  seatsQty: { type: Number, required: true },
+}, { versionKey: false });
+
 class CarModel implements IModel<ICar> {
-  private _mongooseSchema = new MongooseSchema<ICar>({
-    model: { type: String, required: true },
-    year: { type: Number, required: true },
-    color: { type: String, required: true },
-    status: Boolean,
-    buyValue: { type: Number, required: true },
-    doorsQty: { type: Number, required: true },
-    seatsQty: { type: Number, required: true },
-  }, { versionKey: false });
-  
   private _mongooseModel: Model<ICar>;
   
   constructor() {
-    this._mongooseModel = mongooseCreateModel('Car', this._mongooseSchema);
+    this._mongooseModel = mongooseCreateModel('Car', mongooseSchema);
   }
   
   async create(obj: ICar): Promise<ICarWithId> {
@@ -28,7 +28,7 @@ class CarModel implements IModel<ICar> {
     return { ...createdCar, _id: createdCar._id.toString() };
   }
   
-  read(): Promise<ICar> {
+  read(): Promise<ICar[]> {
     throw new Error(errorMessage);
   }
   readOne(): Promise<ICar> {
