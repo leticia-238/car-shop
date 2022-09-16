@@ -10,11 +10,11 @@ class CarService implements IService<ICar> {
   async create(obj: unknown): Promise<ICarWithId> {
     const validateCar = CarZodSchema.safeParse(obj);
     if (!validateCar.success) {
-      const { message } = validateCar.error;
+      const message = 'Invalid fields';
       throw new ClientError('RequestValidation', message);
     }
     const createdCar = await this._model.create(validateCar.data);
-    return createdCar;
+    return createdCar as ICarWithId;
   }  
 }
 
