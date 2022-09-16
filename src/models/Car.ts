@@ -25,7 +25,7 @@ class CarModel implements IModel<ICar> {
   
   async create(obj: ICar): Promise<ICarWithId> {
     const createdCar = await this._mongooseModel.create({ ...obj });
-    return createdCar;
+    return { ...createdCar, _id: createdCar._id.toString() };
   }
   
   read(): Promise<ICar> {
