@@ -17,5 +17,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "a550c4bc-54d1-4461-b6ef-fe589aa486dc",
+    "colId": "fd802377-b6d3-4065-8009-cd7176f36eeb",
+    "containerId": "66dc602c-5c93-496d-8bc7-405462c99d97",
+    "name": "cars - invalid request",
+    "url": "localhost:3001/cars",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-09-16T13:55:35.144Z",
+    "modified": "2022-09-16T14:25:35.955Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"model\": \"opala\",\n  \"year\": 1998,\n  \"color\": \"blue\",\n  \"buyValue\": 50000, \n  \"doorsQty\": 5\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
