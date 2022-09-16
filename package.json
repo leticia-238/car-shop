@@ -2,9 +2,9 @@
   "name": "car-shop",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/connection.js",
   "scripts": {
-    "dev": "tsnd src/index.ts",
+    "dev": "tsnd src/connection.ts",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest -i --forceExit --verbose",
     "test:dev": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
