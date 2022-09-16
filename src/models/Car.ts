@@ -1,12 +1,13 @@
 /* eslint-disable class-methods-use-this */
-import { Model, model as mongooseCreateModel, Schema as MongooseSchema } from 'mongoose';
+import { Model, model as mongooseCreateModel, Schema as MongooseSchema, Types } from 'mongoose';
 import { ICarWithId } from '../interfaces/IEntityWithId';
 import { ICar } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
 
 const errorMessage = 'Method not implemented.';
 
-const mongooseSchema = new MongooseSchema<ICar>({
+const mongooseSchema = new MongooseSchema<ICarWithId>({
+  _id: { type: String, required: true },
   model: { type: String, required: true },
   year: { type: Number, required: true },
   color: { type: String, required: true },
@@ -17,20 +18,25 @@ const mongooseSchema = new MongooseSchema<ICar>({
 }, { versionKey: false });
 
 class CarModel implements IModel<ICar> {
-  private _mongooseModel: Model<ICar>;
+  private _mongooseModel: Model<ICarWithId>;
   
   constructor() {
     this._mongooseModel = mongooseCreateModel('Car', mongooseSchema);
   }
   
   async create(obj: ICar): Promise<ICarWithId> {
-    const createdCar = await this._mongooseModel.create({ ...obj });
-    return { ...createdCar, _id: createdCar._id.toString() };
+    const createdCar = await this._mongooseModel.create({ 
+      _id: new Types.ObjectId().toString(),
+      ...obj, 
+    });
+    return createdCar;
   }
   
-  read(): Promise<ICar[]> {
-    throw new Error(errorMessage);
+  async read(): Promise<ICarWithId[]> {
+    const cars = await this._mongooseModel.find({});
+    return cars;
   }
+  
   readOne(): Promise<ICar> {
     throw new Error(errorMessage);
   }
