@@ -1,8 +1,9 @@
-import { ICarWithId } from '../interfaces/IEntityWithId';
+import { ICarWithId, IdZodSchema } from '../interfaces/IEntityWithId';
 import { CarZodSchema, ICar } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
 import { IService } from '../interfaces/IService';
 import ClientError from '../errors/ClientError';
+import { ClientErrors } from '../helpers/httpStatus';
 
 class CarService implements IService<ICar> {
   constructor(private _model: IModel<ICar>) {}
@@ -11,7 +12,7 @@ class CarService implements IService<ICar> {
     const validateCar = CarZodSchema.safeParse(obj);
     if (!validateCar.success) {
       const message = 'Invalid fields';
-      throw new ClientError('RequestValidation', message);
+      throw new ClientError(ClientErrors.BadRequest, message);
     }
     const createdCar = await this._model.create(validateCar.data);
     return createdCar as ICarWithId;
@@ -23,7 +24,13 @@ class CarService implements IService<ICar> {
   }
   
   async readOne(id: string): Promise<ICarWithId> {
+    const validateId = IdZodSchema.safeParse(id);
+    if (!validateId.success) {
+      const { message } = validateId.error.issues[0];
+      throw new ClientError(ClientErrors.BadRequest, message);
+    }
     const car = await this._model.readOne(id);
+    if (!car) throw new ClientError(ClientErrors.NotFound, 'Object not found');
     return car as ICarWithId;
   }
 }

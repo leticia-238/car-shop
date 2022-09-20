@@ -1,9 +1,9 @@
-import { ErrorType } from './errorCatalog';
+import { ClientErrors } from '../helpers/httpStatus';
 
 class ClientError extends Error {
-  constructor(name: ErrorType, message: string) {
+  constructor(public statusCode: ClientErrors, message: string) {
     super(message);
-    this.name = name;
+    this.name = this.constructor.name;
   }
 }
 

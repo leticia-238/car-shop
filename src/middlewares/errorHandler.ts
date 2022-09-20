@@ -4,7 +4,7 @@ import { ServerErrors } from '../helpers/httpStatus';
 
 const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   const errorType = error.name as ErrorType;
-  const httpStatus = ErrorCatalog[errorType] || ServerErrors.InternalServer;
+  const httpStatus = error.statusCode || ServerErrors.InternalServer;
   let message = 'internal error';
   
   if (errorType in ErrorCatalog) message = error.message;
