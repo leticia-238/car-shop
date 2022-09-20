@@ -10,7 +10,9 @@ export const carMock: ICar = {
   seatsQty: 5
 }
 
+export const carIdMock = '632481a51515aff84fc758d9'
+
 export const carMockWithId: ICarWithId = { 
-  _id: '632481a51515aff84fc758d9',
+  _id: carIdMock,
   ...carMock, 
 }
