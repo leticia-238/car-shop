@@ -112,16 +112,73 @@
     "colId": "fd802377-b6d3-4065-8009-cd7176f36eeb",
     "containerId": "ef5904ff-e8bd-40b1-b395-3e19d292fa90",
     "name": "cars - valid request body and valid id",
-    "url": "localhost:3001/cars/632a73855fedc140b035c03c",
+    "url": "localhost:3001/cars/632b20a86ef4904c7c8f801e",
     "method": "PUT",
     "sortNum": 60000,
     "created": "2022-09-21T02:15:14.555Z",
-    "modified": "2022-09-21T02:17:08.750Z",
+    "modified": "2022-09-21T14:35:10.517Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
       "raw": "{\n  \"model\": \"corola\",\n  \"year\": 1998,\n  \"color\": \"pink\",\n  \"buyValue\": 50000, \n  \"doorsQty\": 4,\n  \"seatsQty\": 5\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c5573e86-1a37-4d8c-a09d-5e66e887c275",
+    "colId": "fd802377-b6d3-4065-8009-cd7176f36eeb",
+    "containerId": "ef5904ff-e8bd-40b1-b395-3e19d292fa90",
+    "name": "cars - valid request body and inexistent id ",
+    "url": "localhost:3001/cars/999999999999999999999999",
+    "method": "PUT",
+    "sortNum": 70000,
+    "created": "2022-09-21T14:35:41.035Z",
+    "modified": "2022-09-21T14:36:35.627Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"model\": \"corola\",\n  \"year\": 1998,\n  \"color\": \"pink\",\n  \"buyValue\": 50000, \n  \"doorsQty\": 4,\n  \"seatsQty\": 5\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "7fdda1d8-9cf2-460d-be0b-87da5579b5bc",
+    "colId": "fd802377-b6d3-4065-8009-cd7176f36eeb",
+    "containerId": "ef5904ff-e8bd-40b1-b395-3e19d292fa90",
+    "name": "cars - valid request body and invalid id  ",
+    "url": "localhost:3001/cars/9999",
+    "method": "PUT",
+    "sortNum": 80000,
+    "created": "2022-09-21T14:36:52.874Z",
+    "modified": "2022-09-21T14:37:51.849Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"model\": \"corola\",\n  \"year\": 1998,\n  \"color\": \"pink\",\n  \"buyValue\": 50000, \n  \"doorsQty\": 4,\n  \"seatsQty\": 5\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "e51e87bb-fc6a-4974-9690-0b95169b2542",
+    "colId": "fd802377-b6d3-4065-8009-cd7176f36eeb",
+    "containerId": "ef5904ff-e8bd-40b1-b395-3e19d292fa90",
+    "name": "cars - invalid request body and valid id ",
+    "url": "localhost:3001/cars/632b20a86ef4904c7c8f801e",
+    "method": "PUT",
+    "sortNum": 90000,
+    "created": "2022-09-21T14:38:04.698Z",
+    "modified": "2022-09-21T14:39:03.032Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n \n}",
       "form": []
     },
     "tests": []

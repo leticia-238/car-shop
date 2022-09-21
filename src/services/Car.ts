@@ -40,6 +40,12 @@ class CarService implements IService<ICar> {
       const { message } = validateId.error.issues[0];
       throw new ClientError(ClientErrors.BadRequest, message);
     }
+    const validateCar = CarZodSchema.safeParse(obj);
+    if (!validateCar.success) {
+      const message = 'Invalid fields';
+      throw new ClientError(ClientErrors.BadRequest, message);
+    }
+    
     const car = await this._model.update(id, obj);
     CarService.validateIfExists(car);
     return car as ICarWithId;
