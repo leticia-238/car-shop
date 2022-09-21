@@ -5,5 +5,5 @@ export interface IModel<T> {
   read(): Promise<T[] | []>,
   readOne(id: string): Promise<T | null>,
   update(): Promise<T>,
-  delete(): Promise<T>,
+  delete(id: string): Promise<T | null>,
 }

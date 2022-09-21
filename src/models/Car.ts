@@ -44,8 +44,10 @@ class CarModel implements IModel<ICar> {
   update(): Promise<ICar> {
     throw new Error(errorMessage);
   }
-  delete(): Promise<ICar> {
-    throw new Error(errorMessage);
+  
+  async delete(id: string): Promise<ICar | null> {
+    const car = await this._mongooseModel.findByIdAndDelete(id);
+    return car;
   }
 }
 

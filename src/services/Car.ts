@@ -33,6 +33,16 @@ class CarService implements IService<ICar> {
     if (!car) throw new ClientError(ClientErrors.NotFound, 'Object not found');
     return car as ICarWithId;
   }
+  
+  async delete(id: string): Promise<void> {
+    const validateId = IdZodSchema.safeParse(id);
+    if (!validateId.success) {
+      const { message } = validateId.error.issues[0];
+      throw new ClientError(ClientErrors.BadRequest, message);
+    }
+    const car = await this._model.delete(id);
+    if (!car) throw new ClientError(ClientErrors.NotFound, 'Object not found');
+  }
 }
 
 export default CarService;

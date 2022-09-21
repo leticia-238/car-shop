@@ -17,4 +17,6 @@ route.get(path, (req, res) => controller.read(req, res));
 
 route.get(`${path}/:id`, (req, res) => controller.readOne(req, res));
 
+route.delete(`${path}/:id`, (req, res) => controller.delete(req, res));
+
 export default route;

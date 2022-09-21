@@ -1,6 +1,7 @@
 export enum SuccessAnswers {
   Ok = 200,
   Created = 201,
+  NoContent = 204,
 }
 
 export enum ClientErrors {

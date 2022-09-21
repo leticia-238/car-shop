@@ -23,6 +23,12 @@ class CarController {
     const car = await this._service.readOne(id);
     res.status(SuccessAnswers.Ok).json(car);
   }
+  
+  async delete(req: Request, res: Response<ICarWithId>): Promise<void> {
+    const { id } = req.params;
+    await this._service.delete(id);
+    res.sendStatus(SuccessAnswers.NoContent);
+  }
 }
 
 export default CarController;
