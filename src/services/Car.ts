@@ -30,7 +30,18 @@ class CarService implements IService<ICar> {
       throw new ClientError(ClientErrors.BadRequest, message);
     }
     const car = await this._model.readOne(id);
-    if (!car) throw new ClientError(ClientErrors.NotFound, 'Object not found');
+    CarService.validateIfExists(car);
+    return car as ICarWithId;
+  }
+  
+  async update(id: string, obj: ICar): Promise<ICarWithId> {
+    const validateId = IdZodSchema.safeParse(id);
+    if (!validateId.success) {
+      const { message } = validateId.error.issues[0];
+      throw new ClientError(ClientErrors.BadRequest, message);
+    }
+    const car = await this._model.update(id, obj);
+    CarService.validateIfExists(car);
     return car as ICarWithId;
   }
   
@@ -41,7 +52,11 @@ class CarService implements IService<ICar> {
       throw new ClientError(ClientErrors.BadRequest, message);
     }
     const car = await this._model.delete(id);
-    if (!car) throw new ClientError(ClientErrors.NotFound, 'Object not found');
+    CarService.validateIfExists(car);
+  }
+  
+  static validateIfExists(obj: ICar | null): void {
+    if (!obj) throw new ClientError(ClientErrors.NotFound, 'Object not found');
   }
 }
 

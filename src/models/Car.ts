@@ -4,8 +4,6 @@ import { ICarWithId } from '../interfaces/IEntityWithId';
 import { ICar } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
 
-const errorMessage = 'Method not implemented.';
-
 const mongooseSchema = new MongooseSchema<ICarWithId>({
   _id: { type: String, required: true },
   model: { type: String, required: true },
@@ -41,8 +39,13 @@ class CarModel implements IModel<ICar> {
     const car = await this._mongooseModel.findById(id);
     return car;
   }
-  update(): Promise<ICar> {
-    throw new Error(errorMessage);
+  
+  async update(id: string, obj: ICar): Promise<ICarWithId | null> {
+    const updatedCar = await this._mongooseModel.findByIdAndUpdate(
+      id,
+      { ...obj },
+    );
+    return updatedCar;
   }
   
   async delete(id: string): Promise<ICar | null> {

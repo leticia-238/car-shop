@@ -24,6 +24,13 @@ class CarController {
     res.status(SuccessAnswers.Ok).json(car);
   }
   
+  async update(req: Request, res: Response<ICarWithId>): Promise<void> {
+    const { id } = req.params;
+    const car = req.body;
+    const updatedCar = await this._service.update(id, car);
+    res.status(SuccessAnswers.Ok).json(updatedCar);
+  }
+  
   async delete(req: Request, res: Response<ICarWithId>): Promise<void> {
     const { id } = req.params;
     await this._service.delete(id);
