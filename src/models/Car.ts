@@ -44,6 +44,7 @@ class CarModel implements IModel<ICar> {
     const updatedCar = await this._mongooseModel.findByIdAndUpdate(
       id,
       { ...obj },
+      { new: true },
     );
     return updatedCar;
   }
