@@ -1,7 +1,7 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
 import { Model } from 'mongoose';
-import { carIdMock, carMock, carMockWithId } from '../../mocks/carMock';
+import { carIdMock, carListMock, carMock, carMockWithId } from '../../mocks/carMock';
 import CarModel from '../../../models/Car';
 import { describe } from 'mocha';
 
@@ -14,7 +14,11 @@ describe('Testing Car Model', () => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
     sinon.stub(Model, 'findById')
       .onFirstCall().resolves(carMockWithId)
-      .onSecondCall().resolves(null)
+      .onSecondCall().resolves(null);
+			
+		sinon.stub(Model, 'find')
+      .onFirstCall().resolves(carListMock)
+      .onSecondCall().resolves([]);
   });
 
   after(sinon.restore);
@@ -36,6 +40,18 @@ describe('Testing Car Model', () => {
       const inexistentCarId = '985481a51515aff84fc758d9'
 			const foundCar = await carModel.readOne(inexistentCarId);
 			expect(foundCar).to.be.null;
+		});
+	});
+	
+	describe('Listing all cars', () => {
+		it('returns the list of cars successfully', async () => {
+			const carList = await carModel.read();
+			expect(carList).to.be.deep.equal(carListMock);
+		});
+    
+		it('returns an empty array if there are no cars', async () => {
+			const carList = await carModel.read();
+			expect(carList).to.be.an('array').that.is.empty;
 		});
 	});
 });

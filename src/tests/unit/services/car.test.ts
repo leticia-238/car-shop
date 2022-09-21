@@ -3,7 +3,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised'
 import CarModel from '../../../models/Car';
 import CarService from '../../../services/Car';
-import { carIdMock, carMock, carMockWithId } from '../../mocks/carMock';
+import { carIdMock, carListMock, carMock, carMockWithId } from '../../mocks/carMock';
 import ClientError from '../../../errors/ClientError';
 
 chai.use(chaiAsPromised);
@@ -18,7 +18,11 @@ describe('Testing Car Service', () => {
     sinon.stub(carModel, 'create').resolves(carMockWithId);
 		sinon.stub(carModel, 'readOne')
 			.onFirstCall().resolves(carMockWithId)
-			.onSecondCall().resolves(null)
+			.onSecondCall().resolves(null);
+		
+		sinon.stub(carModel, 'read')
+			.onFirstCall().resolves(carListMock)
+			.onSecondCall().resolves([])
   });
 
   after(sinon.restore)
@@ -51,6 +55,18 @@ describe('Testing Car Service', () => {
       const inexistentCarId = '985481a51515aff84fc758d9'
 			return expect(carService.readOne(inexistentCarId)).to.eventually
 				.rejectedWith(ClientError, 'Object not found');
+		});
+	});
+	
+	describe('Listing all cars', () => {
+		it('returns the list of cars successfully', async () => {
+			const carList = await carService.read();
+			expect(carList).to.be.deep.equal(carListMock);
+		});
+    
+		it('returns an empty array if there are no cars', async () => {
+			const carList = await carService.read();
+			expect(carList).to.be.an('array').that.is.empty;
 		});
 	});
 });
