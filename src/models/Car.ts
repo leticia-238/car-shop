@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import { Model, model as mongooseCreateModel, Schema as MongooseSchema, Types } from 'mongoose';
 import { ICarWithId } from '../interfaces/IEntityWithId';
 import { ICar } from '../interfaces/ICar';
