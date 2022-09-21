@@ -2,7 +2,7 @@ import * as sinon from 'sinon';
 import chai from 'chai';
 import CarModel from '../../../models/Car';
 import CarService from '../../../services/Car';
-import { carIdMock, carListMock, carMock, carMockWithId } from '../../mocks/carMock';
+import { carIdMock, carListMock, carMock, carMockWithId, updatedCarMock } from '../../mocks/carMock';
 import CarController from '../../../controllers/Car';
 import { Request, Response } from 'express';
 import { SuccessAnswers } from '../../../helpers/httpStatus';
@@ -20,6 +20,7 @@ describe('Testing Car Controller', () => {
     sinon.stub(carService, 'create').resolves(carMockWithId);
     sinon.stub(carService, 'readOne').resolves(carMockWithId);
     sinon.stub(carService, 'read').resolves(carListMock);
+    sinon.stub(carService, 'update').resolves(updatedCarMock);
   
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -62,6 +63,18 @@ describe('Testing Car Controller', () => {
       
 			expect(statusStub.calledWith(SuccessAnswers.Ok)).to.be.true;
       expect(jsonStub.calledWith(carListMock)).to.be.true;
+		});
+	});
+  
+  describe('Updating a car by id', () => {
+		it('returns the car updated successfully', async () => {
+			await carController.update(req, res);
+      
+      const statusStub = res.status as sinon.SinonStub
+      const jsonStub = res.json as sinon.SinonStub
+      
+			expect(statusStub.calledWith(SuccessAnswers.Ok)).to.be.true;
+      expect(jsonStub.calledWith(updatedCarMock)).to.be.true;
 		});
 	});
 });

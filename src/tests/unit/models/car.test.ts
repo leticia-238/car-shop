@@ -1,7 +1,8 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
 import { Model } from 'mongoose';
-import { carIdMock, carListMock, carMock, carMockWithId } from '../../mocks/carMock';
+import { carIdMock, carListMock, carMock, carMockWithId, carToUpdateMock, 
+	updatedCarMock } from '../../mocks/carMock';
 import CarModel from '../../../models/Car';
 import { describe } from 'mocha';
 
@@ -19,6 +20,10 @@ describe('Testing Car Model', () => {
 		sinon.stub(Model, 'find')
       .onFirstCall().resolves(carListMock)
       .onSecondCall().resolves([]);
+			
+		sinon.stub(Model, 'findByIdAndUpdate')
+      .onFirstCall().resolves(updatedCarMock)
+      .onSecondCall().resolves(null);
   });
 
   after(sinon.restore);
@@ -52,6 +57,19 @@ describe('Testing Car Model', () => {
 		it('returns an empty array if there are no cars', async () => {
 			const carList = await carModel.read();
 			expect(carList).to.be.an('array').that.is.empty;
+		});
+	});
+	
+	describe('Updating a car by id', () => {
+		it('returns the car updated successfully', async () => {
+			const updatedCar = await carModel.update(carIdMock, carToUpdateMock);
+			expect(updatedCar).to.be.deep.equal(updatedCarMock);
+		});
+    
+		it('returns null if car is not found', async () => {
+      const inexistentCarId = '985481a51515aff84fc758d9'
+			const updatedCar = await carModel.update(inexistentCarId, carToUpdateMock);
+			expect(updatedCar).to.be.null;
 		});
 	});
 });

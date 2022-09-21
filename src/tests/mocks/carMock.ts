@@ -17,4 +17,18 @@ export const carMockWithId: ICarWithId = {
   ...carMock, 
 };
 
+export const carToUpdateMock: ICar = {
+  model: "Fiat Uno",
+  year: 1963,
+  color: "blue",
+  buyValue: 3500,
+  seatsQty: 4,
+  doorsQty: 4
+};
+
+export const updatedCarMock: ICarWithId = {
+  _id: carIdMock,  
+  ...carToUpdateMock
+};
+
 export const carListMock = [carMockWithId];
