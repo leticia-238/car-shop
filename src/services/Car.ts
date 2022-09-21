@@ -34,7 +34,7 @@ class CarService implements IService<ICar> {
     return car as ICarWithId;
   }
   
-  async update(id: string, obj: ICar): Promise<ICarWithId> {
+  async update(id: string, obj: unknown): Promise<ICarWithId> {
     const validateId = IdZodSchema.safeParse(id);
     if (!validateId.success) {
       const { message } = validateId.error.issues[0];
@@ -46,7 +46,7 @@ class CarService implements IService<ICar> {
       throw new ClientError(ClientErrors.BadRequest, message);
     }
     
-    const car = await this._model.update(id, obj);
+    const car = await this._model.update(id, validateCar.data);
     CarService.validateIfExists(car);
     return car as ICarWithId;
   }
