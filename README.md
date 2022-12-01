@@ -26,21 +26,48 @@ O arquivo src/models/connection.ts e o código dentro do arquivo de src/connecti
 
 ### Pré-requisitos para iniciar a aplicação no computador
 
-- `docker`
-- [`docker compose >=2`](https://docs.docker.com/compose/install/)
+- `node v16` e `docker`
+  
+  ou
+- [`docker compose >=v2`](https://docs.docker.com/compose/install/)
 
 ### Execute os seguintes passos no terminal
 
-1. Clone o projeto: `git clone git@github.com:leticia-238/trybe-futebol-clube.git`
+1. Clone o projeto:
 
-2. Entre na pasta do repositório clonado: `cd trybe-futebol-clube`
+    ```bash
+    git clone git@github.com:leticia-238/car-shop.git`
+    ```
 
-3. Inicialize o docker-compose: `npm run compose:up`
+2. Entre na pasta do repositório clonado:
 
-> Este comando irá iniciar os containers da aplicação e do banco de dados de acordo com as configurações do arquivo [docker-compose.yml](https://github.com/leticia-238/car-shop/blob/main/docker-compose.yml)
+    ```bash
+    cd car-shop`
+    ```
 
-4. Inicie a aplicação:
+3. Inicie o servidor:
+    <details><summary>Para iniciar o servidor com o docker-compose:</summary>
 
-- Em modo de desenvolvimento: `npm run dev`
+    ```bash
+    npm run compose:up
+    ```
 
-- Em modo de produção: `npm start`
+    > Este comando irá iniciar os containers da aplicação e do banco de dados de acordo com as configurações do arquivo [docker-compose.yml](https://github.com/leticia-238/car-shop/blob/main/docker-compose.yml)
+
+    </details>
+
+    <details><summary>Para iniciar o servidor com o node e o mongodb com docker:</summary>
+
+    - Caso não tenha o MongoDB instalado em sua máquina rode o seguinte comando:
+
+    ```bash
+    docker run --name car_shop_db -p 27017:27017 -d mongo:5.0.7
+    ```
+
+    - Instale as dependências e inicie o servidor:
+
+    ```bash
+    npm install && npm start
+    ```
+
+    </details>
