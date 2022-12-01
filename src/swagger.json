@@ -1,0 +1,196 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Car Shop",
+    "description": "API para o gerenciamento de uma concessionária de veículos.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/cars": {
+      "post": {
+        "summary": "Cadastro de um novo carro",
+        "description": "Essa rota é responsável por cadastrar um novo carro",
+        "tags": [
+          "Cars"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              },
+              "examples": {
+                "car": {
+                  "$ref": "#/components/examples/car"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "201": {
+            "description": "Carro cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CarWithId"
+                },
+                "examples": {
+                  "car": {
+                    "$ref": "#/components/examples/carWithId"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Listagem de todos os carros",
+        "description": "Essa rota é responsável por retornar todos os carros cadastrados",
+        "tags": [
+          "Cars"
+        ],
+        "responses": {
+          "200": {
+            "description": "Listagem de todos os carros realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarWithId"
+                  }
+                },
+                "examples": {
+                  "cars": {
+                    "items": {
+                      "$ref": "#/components/examples/carWithId"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "summary":"Busca de um carro pelo id",
+        "description": "Essa rota é responsável por retornar o carro correspondente ao id indicado no parametro da requisição",
+        "tags":["Cars"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do carro para busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca do carro realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CarWithId"
+                },
+                "examples": {
+                  "car": {
+                    "$ref": "#/components/examples/carWithId"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description":"Carro não encontrado"
+          },
+          "400": {
+            "description":"Id inválido"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Car": {
+        "type": "object",
+        "required": [
+          "model",
+          "year",
+          "color",
+          "buyValue",
+          "doorsQty",
+          "seatsQty"
+        ],
+        "properties": {
+          "model": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "color": {
+            "type": "string"
+          },
+          "buyValue": {
+            "type": "number"
+          },
+          "doorsQty": {
+            "type": "integer"
+          },
+          "seatsQty": {
+            "type": "integer"
+          }
+        }
+      },
+      "CarWithId": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "$ref": "#/components/schemas/Car"
+          }
+        ]
+      }
+    },
+    "examples": {
+      "car": {
+        "value": {
+          "model": "Palio",
+          "year": 1998,
+          "color": "blue",
+          "buyValue": 50000,
+          "doorsQty": 4,
+          "seatsQty": 5
+        }
+      },
+      "carWithId": {
+        "allOf": [
+          {
+            "value": {
+              "_id": "632481a51515aff84fc758d9"
+            }
+          },
+          {
+            "$ref": "#/components/examples/car"
+          }
+        ]
+      }
+    }
+  }
+}
