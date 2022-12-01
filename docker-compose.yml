@@ -2,15 +2,12 @@ version: "3"
 
 services:
   api:
+    build: ./
     container_name: car_shop
-    build: .
-    tty: true
-    stdin_open: true
-    command: bash
-    restart: always
+    platform: linux/x86_64
     working_dir: /app
-    volumes:
-      - ./:/app
+    command: npm start
+    restart: always
     depends_on:
       - db
     ports:
@@ -21,6 +18,7 @@ services:
   db:
     container_name: car_shop_db
     image: mongo:5.0.7
+    platform: linux/x86_64
     restart: always
     ports:
       - 27017:27017
