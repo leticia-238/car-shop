@@ -21,7 +21,7 @@
               },
               "examples": {
                 "car": {
-                  "$ref": "#/components/examples/car"
+                  "$ref": "#/components/examples/Car"
                 }
               }
             }
@@ -29,7 +29,7 @@
         },
         "responses": {
           "400": {
-            "description": "Bad Request"
+            "description": "Dados do carro inválidos"
           },
           "201": {
             "description": "Carro cadastrado com sucesso",
@@ -41,7 +41,7 @@
                 },
                 "examples": {
                   "car": {
-                    "$ref": "#/components/examples/carWithId"
+                    "$ref": "#/components/examples/CarWithId"
                   }
                 }
               }
@@ -65,13 +65,6 @@
                   "items": {
                     "$ref": "#/components/schemas/CarWithId"
                   }
-                },
-                "examples": {
-                  "cars": {
-                    "items": {
-                      "$ref": "#/components/examples/carWithId"
-                    }
-                  }
                 }
               }
             }
@@ -86,10 +79,7 @@
         "tags":["Cars"],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "Id do carro para busca",
-            "required": true
+            "$ref":"#/components/parameters/Car"
           }
         ],
         "responses": {
@@ -103,11 +93,84 @@
                 },
                 "examples": {
                   "car": {
-                    "$ref": "#/components/examples/carWithId"
+                    "$ref": "#/components/examples/CarWithId"
                   }
                 }
               }
             }
+          },
+          "404": {
+            "description":"Carro não encontrado"
+          },
+          "400": {
+            "description":"Id inválido"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualização de um carro cadastrado",
+        "description": "Essa rota é responsável por atualizar as informações de um carro cadastrado",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/components/parameters/Car"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              },
+              "examples": {
+                "car": {
+                  "$ref": "#/components/examples/Car"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atualização do carro realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/CarWithId"
+                },
+                "examples": {
+                  "car": {
+                    "$ref": "#/components/examples/CarWithId"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description":"Carro não encontrado"
+          },
+          "400": {
+            "description":"Id ou dados do carro inválidos"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remoção de um carro cadastrado",
+        "description": "Essa rota é responsável por remover um carro cadastrado",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "$ref":"#/components/parameters/Car"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Carro removido com sucesso"
           },
           "404": {
             "description":"Carro não encontrado"
@@ -141,6 +204,9 @@
           "color": {
             "type": "string"
           },
+          "status": {
+            "type": "boolean"
+          },
           "buyValue": {
             "type": "number"
           },
@@ -169,7 +235,7 @@
       }
     },
     "examples": {
-      "car": {
+      "Car": {
         "value": {
           "model": "Palio",
           "year": 1998,
@@ -179,7 +245,7 @@
           "seatsQty": 5
         }
       },
-      "carWithId": {
+      "CarWithId": {
         "allOf": [
           {
             "value": {
@@ -187,9 +253,17 @@
             }
           },
           {
-            "$ref": "#/components/examples/car"
+            "$ref": "#/components/examples/Car"
           }
         ]
+      }
+    },
+    "parameters": {
+      "Car": {
+        "name": "id",
+        "in": "path",
+        "description": "Id do carro para busca",
+        "required": true
       }
     }
   }
