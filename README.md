@@ -1,16 +1,22 @@
 <h1 align="center">
-  :car::pickup_truck: Car Shop :blue_car:
+  :pickup_truck: Car Shop :blue_car:
 </h1>
 
 ## Sobre o projeto
 
 ***Projeto realizado durante módulo de Backend na Trybe, entre 14 de Setembro e 21 de Setembro de 2022.***
 
-O Car Shop é uma aplicação backend para o gerenciamento de uma concessionária de veículos.
+O Car Shop é uma API RESTful para o gerenciamento de uma concessionária de veículos.
 
 Nesse projeto foram aplicados os princípios de Programação Orientada a Objetos (POO) para a construção de uma API com CRUD utilizando o banco de dados MongoDB.
 
-O arquivo src/models/connection.ts e o código dentro do arquivo de src/connections.ts foram desenvolvidos pela equipe da [Trybe](https://www.betrybe.com/), escola de programação onde eu realizei este projeto. Toda as outras implementações no back-end foram realizadas por mim.
+A API foi documentada com [Swagger](https://swagger.io/) utilizando o [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express), para acessar a interface interativa e visualizar os serviços disponíveis pela api é preciso instalar e iniciar a aplição no computador segundo as [instruções](#instruções-para-a-instalação). Assim que o servidor estiver iniciado acesse o endereço http://localhost:3001/api-docs/ no browser.
+
+<p align="center">
+  <img width="500px" src="./api-docs-view.png" alt="Imagem da documentação da api"/>
+</p>
+
+> O arquivo src/models/connection.ts e o código dentro do arquivo de src/connections.ts foram desenvolvidos pela equipe da [Trybe](https://www.betrybe.com/), escola de programação onde eu realizei este projeto. Toda as outras implementações no back-end foram realizadas por mim.
 
 ## Tecnologias e Ferramentas utilizadas
 
@@ -71,3 +77,10 @@ O arquivo src/models/connection.ts e o código dentro do arquivo de src/connecti
     ```
 
     </details>
+
+**Para rodar os testes execute:**
+
+```bash
+ npm run test:dev
+```
+
